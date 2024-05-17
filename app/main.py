@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.dependencies import get_current_user
+from app.core.logging_config import logger
 from app.db.base import Base
 from app.db.session import SessionLocal, engine, get_db
 from app.routers import (
@@ -95,6 +96,17 @@ app.include_router(
     dependencies=[Depends(get_current_user)],
 )
 app.include_router(users.router, prefix="/api", tags=["users"])
+
+
+@app.on_event("startup")
+def startup_event():
+    logger.info("Application startup")
+
+
+@app.on_event("shutdown")
+def shutdown_event():
+    logger.info("Application shutdown")
+
 
 # @app.on_event("startup")
 # async def startup():

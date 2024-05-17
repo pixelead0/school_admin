@@ -4,6 +4,7 @@ from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.logging_config import logger
 from app.models.school import School
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
@@ -12,6 +13,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def get_user(db: Session, user_id: uuid.UUID):
+    logger.info(user_id)
     return db.query(User).filter(User.id == user_id).first()
 
 
