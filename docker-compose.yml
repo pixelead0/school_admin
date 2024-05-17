@@ -28,13 +28,13 @@ services:
       context: ./
       dockerfile: containers/api/Dockerfile
     command: uvicorn app.main:app --host 0.0.0.0 --port 8881 --reload
-    restart: on-failure:3
+    restart: on-failure
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
       - SECRET_KEY=${SECRET_KEY}
       - ENVIRONMENT=${ENVIRONMENT}
       - PAGINATION_DEFAULT_LIMIT=${PAGINATION_DEFAULT_LIMIT}

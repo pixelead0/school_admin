@@ -1,16 +1,22 @@
+# -*- coding: utf-8 -*-
+import os
+import uuid
+
 from sqlalchemy.orm import Session
+
 from app.models.invoice import Invoice
 from app.schemas.invoice import InvoiceCreate
-import uuid
-import os
 
 PAGINATION_DEFAULT_LIMIT = int(os.getenv("PAGINATION_DEFAULT_LIMIT", 10))
+
 
 def get_invoice(db: Session, invoice_id: uuid.UUID):
     return db.query(Invoice).filter(Invoice.id == invoice_id).first()
 
+
 def get_invoices(db: Session, skip: int = 0, limit: int = PAGINATION_DEFAULT_LIMIT):
     return db.query(Invoice).offset(skip).limit(limit).all()
+
 
 def create_invoice(db: Session, invoice: InvoiceCreate):
     db_invoice = Invoice(
@@ -25,12 +31,14 @@ def create_invoice(db: Session, invoice: InvoiceCreate):
     db.refresh(db_invoice)
     return db_invoice
 
+
 def delete_invoice(db: Session, invoice_id: uuid.UUID):
     db_invoice = get_invoice(db, invoice_id)
     if db_invoice:
         db.delete(db_invoice)
         db.commit()
     return db_invoice
+
 
 def update_invoice(db: Session, invoice_id: uuid.UUID, invoice_update: InvoiceCreate):
     db_invoice = get_invoice(db, invoice_id)

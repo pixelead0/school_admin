@@ -1,5 +1,8 @@
-from pydantic import BaseModel, Field, constr
+# -*- coding: utf-8 -*-
 from uuid import UUID
+
+from pydantic import BaseModel, Field, constr
+
 
 class StudentCreate(BaseModel):
     first_name: constr(min_length=2) = Field(...)
@@ -9,6 +12,7 @@ class StudentCreate(BaseModel):
     grade_id: UUID = Field(...)
     school_id: UUID = Field(...)
     user_id: UUID = Field(...)
+
 
 class Student(BaseModel):
     id: UUID

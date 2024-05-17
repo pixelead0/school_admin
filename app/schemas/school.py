@@ -1,6 +1,9 @@
-from pydantic import BaseModel, Field, constr
-from uuid import UUID
+# -*- coding: utf-8 -*-
 from enum import Enum
+from uuid import UUID
+
+from pydantic import BaseModel, Field, constr
+
 
 class SchoolPeriodType(str, Enum):
     bimestral = "bimestral"
@@ -8,12 +11,14 @@ class SchoolPeriodType(str, Enum):
     cuatrimestral = "cuatrimestral"
     semestral = "semestral"
 
+
 class SchoolCreate(BaseModel):
     name: constr(min_length=2) = Field(...)
     country: constr(min_length=2) = Field(...)
     state: constr(min_length=2) = Field(...)
     description: str = Field(...)
     period_type: SchoolPeriodType = Field(...)
+
 
 class School(BaseModel):
     id: UUID

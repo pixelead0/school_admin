@@ -1,34 +1,24 @@
-FROM python:3.10-slim-bullseye AS python-base
+FROM python:3.10-slim-bullseye
 
 WORKDIR /app
 
-# Instala las dependencias del sistema necesarias
+# Install system dependencies
 RUN apt-get update \
     && apt-get install --no-install-recommends -y curl build-essential \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Instala Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
-
-ENV PATH="/root/.local/bin:$PATH"
-
-# Instala el plugin de exportación de Poetry y desactiva la advertencia
-RUN poetry self add poetry-plugin-export \
-    && poetry config virtualenvs.create false \
-    && poetry config warnings.export false
-
-# Copia los archivos de configuración de Poetry y el archivo de entorno
-COPY pyproject.toml poetry.lock ./
+# Copy the requirements file
+COPY requirements.txt .
 COPY .env ./
 
-# Bloquea e instala las dependencias del proyecto
-RUN poetry lock \
-    && poetry install --only main --no-interaction --no-ansi
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el código de la aplicación
+# Copy the application code
 COPY ./app /app
 COPY ./alembic /alembic
 COPY ./alembic.ini /alembic.ini
-# Comando para iniciar la aplicación
-CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8881"]
+
+# Command to start the application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8881"]

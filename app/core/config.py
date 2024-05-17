@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from pydantic import BaseSettings
+
 
 class Settings(BaseSettings):
     PAGINATION_DEFAULT_LIMIT: int = 10
@@ -6,5 +8,6 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
 
 settings = Settings()

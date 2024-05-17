@@ -1,9 +1,13 @@
+# -*- coding: utf-8 -*-
+import uuid
+
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
+
+from app.core.config import settings
 from app.models.student import Student
 from app.schemas.student import StudentCreate
-from app.core.config import settings
-from fastapi import HTTPException
-import uuid
+
 
 def get_student(db: Session, student_id: uuid.UUID):
     student = db.query(Student).filter(Student.id == student_id).first()
@@ -11,8 +15,10 @@ def get_student(db: Session, student_id: uuid.UUID):
         raise HTTPException(status_code=404, detail="Student not found")
     return student
 
+
 def get_students(db: Session, skip: int = 0, limit: int = settings.PAGINATION_DEFAULT_LIMIT):
     return db.query(Student).offset(skip).limit(limit).all()
+
 
 def create_student(db: Session, student: StudentCreate):
     try:
@@ -32,7 +38,9 @@ def create_student(db: Session, student: StudentCreate):
         return db_student
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"Error creating student: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error creating student: {str(e)}")
+
 
 def delete_student(db: Session, student_id: uuid.UUID):
     db_student = get_student(db, student_id)
@@ -40,6 +48,7 @@ def delete_student(db: Session, student_id: uuid.UUID):
         db.delete(db_student)
         db.commit()
     return db_student
+
 
 def update_student(db: Session, student_id: uuid.UUID, student_update: StudentCreate):
     db_student = get_student(db, student_id)
