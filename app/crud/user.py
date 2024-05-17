@@ -3,6 +3,7 @@ import uuid
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.models.school import School
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
@@ -23,14 +24,10 @@ def get_users(db: Session, skip: int = 0, limit: int = 10):
 
 
 def create_user(db: Session, user: UserCreate):
-    school = db.query(School).filter(School.id == user.school_id).first()
-    if not school:
-        raise ValueError("School not found")
     hashed_password = pwd_context.hash(user.password)
     db_user = User(
         username=user.username,
         hashed_password=hashed_password,
-        school_id=user.school_id,
     )
     db.add(db_user)
     db.commit()
@@ -42,17 +39,6 @@ def update_user(db: Session, db_user: User, user_update: UserUpdate):
     if user_update.password:
         db_user.hashed_password = pwd_context.hash(user_update.password)
     db_user.username = user_update.username or db_user.username
-    if user_update.school_id:
-        school = (
-            db.query(School)
-            .filter(
-                School.id == user_update.school_id,
-            )
-            .first()
-        )
-        if not school:
-            raise ValueError("School not found")
-        db_user.school_id = user_update.school_id
     db.commit()
     db.refresh(db_user)
     return db_user

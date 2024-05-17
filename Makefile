@@ -37,6 +37,14 @@ restart: down up
 logs:
 	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) logs -f
 
+##logs_api        | Show logs of the application
+logs_api:
+	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) logs -f $(CONTAINER_NAME)
+
+##requirements    | pip install -r requirements.txt
+requirements:
+	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE)  run --rm $(CONTAINER_NAME) pip install -r requirements.txt
+
 ##upgrade     | Run DB upgrade
 upgrade:
 	if [ -z $(id) ]; then \
@@ -53,7 +61,7 @@ downgrade:
 		$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic downgrade $(id); \
 	fi
 
-##revision     | Run DB revision. Set 'msg' arg.
+##revision msg="first" | Run DB revision. Set 'msg' arg.
 revision:
 	if [ -z $(msg) ]; then \
 		echo "Especifique un mensaje para la migracion."; \

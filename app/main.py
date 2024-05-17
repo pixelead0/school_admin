@@ -1,14 +1,13 @@
 # app/main.py
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.dependencies import get_current_user
 from app.db.base import Base
 from app.db.session import SessionLocal, engine, get_db
-
-# from app.init_data import create_sample_data
 from app.routers import (
     grades,
     invoices,
@@ -19,10 +18,12 @@ from app.routers import (
     users,
 )
 
+# from app.init_data import create_sample_data
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="Mattilda API",
+    title="School Admin",
     description="API para gestionar colegios, estudiantes, facturas y pagos.",
     version="1.0.0",
     openapi_tags=[
@@ -57,14 +58,43 @@ app = FastAPI(
     ],
 )
 
-app.include_router(schools.router, prefix="/api", tags=["schools"])
-app.include_router(students.router, prefix="/api", tags=["students"])
-app.include_router(invoices.router, prefix="/api", tags=["invoices"])
-app.include_router(payments.router, prefix="/api", tags=["payments"])
-app.include_router(payment_types.router, prefix="/api", tags=["payment_types"])
-app.include_router(grades.router, prefix="/api", tags=["grades"])
+app.include_router(
+    schools.router,
+    prefix="/api",
+    tags=["schools"],
+    dependencies=[Depends(get_current_user)],
+)
+app.include_router(
+    students.router,
+    prefix="/api",
+    tags=["students"],
+    dependencies=[Depends(get_current_user)],
+)
+app.include_router(
+    invoices.router,
+    prefix="/api",
+    tags=["invoices"],
+    dependencies=[Depends(get_current_user)],
+)
+app.include_router(
+    payments.router,
+    prefix="/api",
+    tags=["payments"],
+    dependencies=[Depends(get_current_user)],
+)
+app.include_router(
+    payment_types.router,
+    prefix="/api",
+    tags=["payment_types"],
+    dependencies=[Depends(get_current_user)],
+)
+app.include_router(
+    grades.router,
+    prefix="/api",
+    tags=["grades"],
+    dependencies=[Depends(get_current_user)],
+)
 app.include_router(users.router, prefix="/api", tags=["users"])
-
 
 # @app.on_event("startup")
 # async def startup():
