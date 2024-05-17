@@ -12,7 +12,7 @@ from app.models import *
 config = context.config
 
 # Carga la URL de la base de datos en el archivo alembic.ini
-config.set_main_option("sqlalchemy.url", settings.database_url)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 fileConfig(config.config_file_name)
 
