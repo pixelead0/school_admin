@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "mattilda"
+version = "0.1.0"
+description = "Proyecto Mattilda"
+authors = ["AdanGQ <adangq@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.68.0"
+uvicorn = "^0.15.0"
+sqlalchemy = "^1.4.23"
+psycopg2-binary = "^2.9.1"
+pydantic = "^1.8.2"
+python-dotenv = "^0.19.0"
+passlib = "^1.7.4"
+fastapi-cache2 = "^0.1.8"
+
+[tool.poetry.dev-dependencies]
+alembic = "^1.6.5"
+pre-commit = "^2.14.0"
+black = "^21.9b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
