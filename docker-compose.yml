@@ -46,8 +46,21 @@ services:
     networks:
       - backend
 
+  pgadmin:
+    depends_on:
+      - db
+    build:
+      dockerfile: Dockerfile
+      context: containers/pgadmin
+    env_file:
+      - containers/pgadmin/pgadmin.env
+    ports:
+      - 8484:80
+    networks:
+      - backend
 volumes:
   postgres_data:
 
 networks:
   backend:
+    driver: bridge
