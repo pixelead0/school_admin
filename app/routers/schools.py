@@ -51,7 +51,9 @@ def delete_school_endpoint(school_id: uuid.UUID, db: Session = Depends(get_db)):
 
 @router.put("/schools/{school_id}", response_model=School)
 def update_school_endpoint(
-    school_id: uuid.UUID, school: SchoolCreate, db: Session = Depends(get_db)
+    school_id: uuid.UUID,
+    school: SchoolCreate,
+    db: Session = Depends(get_db),
 ):
     db_school = update_school(db=db, school_id=school_id, school_update=school)
     if db_school is None:

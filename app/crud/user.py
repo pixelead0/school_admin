@@ -43,7 +43,13 @@ def update_user(db: Session, db_user: User, user_update: UserUpdate):
         db_user.hashed_password = pwd_context.hash(user_update.password)
     db_user.username = user_update.username or db_user.username
     if user_update.school_id:
-        school = db.query(School).filter(School.id == user_update.school_id).first()
+        school = (
+            db.query(School)
+            .filter(
+                School.id == user_update.school_id,
+            )
+            .first()
+        )
         if not school:
             raise ValueError("School not found")
         db_user.school_id = user_update.school_id

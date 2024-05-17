@@ -29,7 +29,11 @@ def get_grades(
 
 
 def create_grade(db: Session, grade: GradeCreate):
-    db_grade = Grade(id=uuid.uuid4(), name=grade.name, school_id=grade.school_id)
+    db_grade = Grade(
+        id=uuid.uuid4(),
+        name=grade.name,
+        school_id=grade.school_id,
+    )
     db.add(db_grade)
     db.commit()
     db.refresh(db_grade)

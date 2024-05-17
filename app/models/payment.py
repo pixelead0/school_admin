@@ -20,7 +20,10 @@ class Payment(Base):
     )
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
     school_id = Column(UUID(as_uuid=True), ForeignKey("schools.id"))
-    payment_type_id = Column(UUID(as_uuid=True), ForeignKey("payment_types.id"))
+    payment_type_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("payment_types.id"),
+    )
 
     student = relationship("Student", back_populates="payments")
     school = relationship("School", back_populates="payments")

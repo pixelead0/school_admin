@@ -16,7 +16,9 @@ def get_student(db: Session, student_id: uuid.UUID):
 
 
 def get_students(
-    db: Session, skip: int = 0, limit: int = settings.PAGINATION_DEFAULT_LIMIT
+    db: Session,
+    skip: int = 0,
+    limit: int = settings.PAGINATION_DEFAULT_LIMIT,
 ):
     return db.query(Student).offset(skip).limit(limit).all()
 
@@ -39,7 +41,10 @@ def create_student(db: Session, student: StudentCreate):
         return db_student
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"Error creating student: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error creating student: {str(e)}",
+        )
 
 
 def delete_student(db: Session, student_id: uuid.UUID):

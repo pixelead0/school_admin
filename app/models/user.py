@@ -21,7 +21,8 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     school_id = Column(
-        UUID(as_uuid=True), ForeignKey("schools.id", ondelete="CASCADE", index=True)
+        UUID(as_uuid=True),
+        ForeignKey("schools.id", ondelete="CASCADE", index=True),
     )
     is_superuser = Column(Boolean, default=False)
     # Audit Fields

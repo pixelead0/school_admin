@@ -52,9 +52,15 @@ def delete_student(student_id: uuid.UUID, db: Session = Depends(get_db)):
 
 @router.put("/students/{student_id}", response_model=Student)
 def update_student(
-    student_id: uuid.UUID, student: StudentCreate, db: Session = Depends(get_db)
+    student_id: uuid.UUID,
+    student: StudentCreate,
+    db: Session = Depends(get_db),
 ):
-    db_student = update_student(db=db, student_id=student_id, student_update=student)
+    db_student = update_student(
+        db=db,
+        student_id=student_id,
+        student_update=student,
+    )
     if db_student is None:
         raise HTTPException(status_code=404, detail="Student not found")
     return db_student

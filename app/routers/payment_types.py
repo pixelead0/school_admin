@@ -30,7 +30,8 @@ def read_payment_types(
 
 @router.post("/payment_types/", response_model=PaymentType)
 def create_payment_type_endpoint(
-    payment_type: PaymentTypeCreate, db: Session = Depends(get_db)
+    payment_type: PaymentTypeCreate,
+    db: Session = Depends(get_db),
 ):
     return create_payment_type(db=db, payment_type=payment_type)
 
@@ -45,9 +46,13 @@ def read_payment_type(payment_type_id: uuid.UUID, db: Session = Depends(get_db))
 
 @router.delete("/payment_types/{payment_type_id}", response_model=PaymentType)
 def delete_payment_type_endpoint(
-    payment_type_id: uuid.UUID, db: Session = Depends(get_db)
+    payment_type_id: uuid.UUID,
+    db: Session = Depends(get_db),
 ):
-    db_payment_type = delete_payment_type(db=db, payment_type_id=payment_type_id)
+    db_payment_type = delete_payment_type(
+        db=db,
+        payment_type_id=payment_type_id,
+    )
     if db_payment_type is None:
         raise HTTPException(status_code=404, detail="Payment type not found")
     return db_payment_type
@@ -60,7 +65,9 @@ def update_payment_type_endpoint(
     db: Session = Depends(get_db),
 ):
     db_payment_type = update_payment_type(
-        db=db, payment_type_id=payment_type_id, payment_type_update=payment_type
+        db=db,
+        payment_type_id=payment_type_id,
+        payment_type_update=payment_type,
     )
     if db_payment_type is None:
         raise HTTPException(status_code=404, detail="Payment type not found")

@@ -51,9 +51,15 @@ def delete_payment_endpoint(payment_id: uuid.UUID, db: Session = Depends(get_db)
 
 @router.put("/payments/{payment_id}", response_model=Payment)
 def update_payment_endpoint(
-    payment_id: uuid.UUID, payment: PaymentCreate, db: Session = Depends(get_db)
+    payment_id: uuid.UUID,
+    payment: PaymentCreate,
+    db: Session = Depends(get_db),
 ):
-    db_payment = update_payment(db=db, payment_id=payment_id, payment_update=payment)
+    db_payment = update_payment(
+        db=db,
+        payment_id=payment_id,
+        payment_update=payment,
+    )
     if db_payment is None:
         raise HTTPException(status_code=404, detail="Payment not found")
     return db_payment

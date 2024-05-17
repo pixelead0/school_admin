@@ -40,27 +40,27 @@ logs:
 ##upgrade     | Run DB upgrade
 upgrade:
 	if [ -z $(id) ]; then \
-         $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE)  run --rm $(CONTAINER_NAME) alembic upgrade head; \
-      else \
-       $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE)  run --rm $(CONTAINER_NAME) alembic upgrade $(id); \
-    fi
+		$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE)  run --rm $(CONTAINER_NAME) alembic upgrade head; \
+	else \
+		$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE)  run --rm $(CONTAINER_NAME) alembic upgrade $(id); \
+	fi
 
 ##downgrade   | Run DB downgrade
 downgrade:
 	if [ -z $(id) ]; then \
-        $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic downgrade base; \
-    else \
-        $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic downgrade $(id); \
-    fi
+		$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic downgrade base; \
+	else \
+		$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic downgrade $(id); \
+	fi
 
 ##revision     | Run DB revision. Set 'msg' arg.
 revision:
 	if [ -z $(msg) ]; then \
-       echo "Especifique un mensaje para la migracion."; \
-        return 1; \
-    else \
-        $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic revision --autogenerate -m $(msg); \
-    fi
+		echo "Especifique un mensaje para la migracion."; \
+		return 1; \
+	else \
+		$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic revision --autogenerate -m $(msg); \
+	fi
 
 ##lint        | Exec pre-commit
 lint:

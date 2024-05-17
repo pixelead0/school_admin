@@ -52,7 +52,9 @@ def delete_grade_endpoint(grade_id: uuid.UUID, db: Session = Depends(get_db)):
 
 @router.put("/grades/{grade_id}", response_model=Grade)
 def update_grade_endpoint(
-    grade_id: uuid.UUID, grade: GradeCreate, db: Session = Depends(get_db)
+    grade_id: uuid.UUID,
+    grade: GradeCreate,
+    db: Session = Depends(get_db),
 ):
     db_grade = update_grade(db=db, grade_id=grade_id, grade_update=grade)
     if db_grade is None:

@@ -51,9 +51,15 @@ def delete_invoice_endpoint(invoice_id: uuid.UUID, db: Session = Depends(get_db)
 
 @router.put("/invoices/{invoice_id}", response_model=Invoice)
 def update_invoice_endpoint(
-    invoice_id: uuid.UUID, invoice: InvoiceCreate, db: Session = Depends(get_db)
+    invoice_id: uuid.UUID,
+    invoice: InvoiceCreate,
+    db: Session = Depends(get_db),
 ):
-    db_invoice = update_invoice(db=db, invoice_id=invoice_id, invoice_update=invoice)
+    db_invoice = update_invoice(
+        db=db,
+        invoice_id=invoice_id,
+        invoice_update=invoice,
+    )
     if db_invoice is None:
         raise HTTPException(status_code=404, detail="Invoice not found")
     return db_invoice
