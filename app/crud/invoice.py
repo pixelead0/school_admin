@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import uuid
 
@@ -24,7 +23,7 @@ def create_invoice(db: Session, invoice: InvoiceCreate):
         student_id=invoice.student_id,
         amount=invoice.amount,
         payment_id=invoice.payment_id,
-        date=invoice.date
+        date=invoice.date,
     )
     db.add(db_invoice)
     db.commit()

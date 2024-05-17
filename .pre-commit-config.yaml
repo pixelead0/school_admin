@@ -1,10 +1,10 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: 21.5b1
+    rev: 24.4.2
     hooks:
       - id: black
   - repo: https://github.com/prettier/pre-commit
-    rev: v2.2.0
+    rev: 57f39166b5a5a504d6808b87ab98d41ebf095b46
     hooks:
       - id: prettier
   - repo: https://github.com/awebdeveloper/pre-commit-prettier
@@ -12,7 +12,7 @@ repos:
     hooks:
       - id: prettier
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v6.8.0
+    rev: v9.2.0
     hooks:
       - id: eslint
         verbose: true
@@ -20,49 +20,29 @@ repos:
           - --color
           - --fix
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
       - id: check-case-conflict
       - id: check-docstring-first
-      # - id: check-executables-have-shebangs
       - id: check-json
       - id: pretty-format-json
       - id: check-merge-conflict
       - id: check-symlinks
-      # - id: check-toml
-      # - id: check-vcs-permalinks
       - id: check-xml
       - id: check-yaml
         args: [--allow-multiple-documents]
       - id: debug-statements
       - id: detect-private-key
-      # - id: double-quote-string-fixer
       - id: end-of-file-fixer
-      # - id: file-contents-sorter
       - id: fix-encoding-pragma
       - id: forbid-new-submodules
       - id: mixed-line-ending
         args: ["--fix=lf"]
-      # - id: name-tests-test
-      # - id: no-commit-to-branch
       - id: requirements-txt-fixer
-      # - id: sort-simple-yaml
       - id: trailing-whitespace
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: "v1.5.7"
-    hooks:
-      - id: autopep8
-  # - repo: https://gitlab.com/pycqa/flake8
-  #   rev: 3.7.9
-  #   hooks:
-  #     - id: flake8
-  #       name: flake8 except __init__.py
-  #       exclude: /__init__\.py$
-  #       additional_dependencies:
-  #         ["flake8-bugbear==21.4.3", flake8-comprehensions]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v1.26.2
+    rev: v3.15.2
     hooks:
       - id: pyupgrade

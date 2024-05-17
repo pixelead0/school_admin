@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import uuid
 
@@ -25,7 +24,7 @@ def create_school(db: Session, school: SchoolCreate):
         country=school.country,
         state=school.state,
         description=school.description,
-        period_type=school.period_type
+        period_type=school.period_type,
     )
     db.add(db_school)
     db.commit()

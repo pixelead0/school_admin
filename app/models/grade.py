@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import uuid
 
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, String
@@ -11,8 +10,13 @@ from app.db.base import Base
 
 class Grade(Base):
     __tablename__ = "grades"
-    id = Column(UUID(as_uuid=True), primary_key=True,
-                default=uuid.uuid4, unique=True, nullable=False)
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     name = Column(String, index=True)
     school_id = Column(UUID(as_uuid=True), ForeignKey("schools.id"))
 

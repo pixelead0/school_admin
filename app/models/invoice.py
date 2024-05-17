@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import uuid
 from datetime import datetime
 
@@ -12,8 +11,13 @@ from app.db.base import Base
 
 class Invoice(Base):
     __tablename__ = "invoices"
-    id = Column(UUID(as_uuid=True), primary_key=True,
-                default=uuid.uuid4, unique=True, nullable=False)
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
     amount = Column(Float)
     payment_id = Column(UUID(as_uuid=True), ForeignKey("payments.id"))

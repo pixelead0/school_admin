@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # app/main.py
 from fastapi import FastAPI
 from fastapi_cache import FastAPICache
@@ -8,9 +7,17 @@ from sqlalchemy.orm import Session
 from app.core.config import settings  # Importa la configuración
 from app.db.base import Base
 from app.db.session import SessionLocal, engine, get_db
-#from app.init_data import create_sample_data
-from app.routers import (grades, invoices, payment_types, payments, schools,
-                         students, users)
+
+# from app.init_data import create_sample_data
+from app.routers import (
+    grades,
+    invoices,
+    payment_types,
+    payments,
+    schools,
+    students,
+    users,
+)
 
 Base.metadata.create_all(bind=engine)
 
@@ -19,19 +26,35 @@ app = FastAPI(
     description="API para gestionar colegios, estudiantes, facturas y pagos.",
     version="1.0.0",
     openapi_tags=[
-        {"name": "schools",
-            "description": "Operaciones relacionadas con la gestión de colegios"},
-        {"name": "students",
-            "description": "Operaciones relacionadas con la gestión de estudiantes"},
-        {"name": "invoices",
-            "description": "Operaciones relacionadas con la gestión de facturas"},
-        {"name": "payments",
-            "description": "Operaciones relacionadas con la gestión de pagos"},
-        {"name": "payment_types",
-            "description": "Operaciones relacionadas con la gestión de tipos de pago"},
-        {"name": "grades", "description": "Operaciones relacionadas con la gestión de grados"},
-        {"name": "users", "description": "Operaciones relacionadas con la gestión de usuarios"}
-    ]
+        {
+            "name": "schools",
+            "description": "Operaciones relacionadas con la gestión de colegios",
+        },
+        {
+            "name": "students",
+            "description": "Operaciones relacionadas con la gestión de estudiantes",
+        },
+        {
+            "name": "invoices",
+            "description": "Operaciones relacionadas con la gestión de facturas",
+        },
+        {
+            "name": "payments",
+            "description": "Operaciones relacionadas con la gestión de pagos",
+        },
+        {
+            "name": "payment_types",
+            "description": "Operaciones relacionadas con la gestión de tipos de pago",
+        },
+        {
+            "name": "grades",
+            "description": "Operaciones relacionadas con la gestión de grados",
+        },
+        {
+            "name": "users",
+            "description": "Operaciones relacionadas con la gestión de usuarios",
+        },
+    ],
 )
 
 app.include_router(schools.router, prefix="/api", tags=["schools"])

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import uuid
 from datetime import datetime
 
@@ -12,12 +11,18 @@ from app.db.base import Base
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(UUID(as_uuid=True), primary_key=True,
-                default=uuid.uuid4, unique=True, nullable=False)
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
-    school_id = Column(UUID(as_uuid=True), ForeignKey(
-        "schools.id", ondelete="CASCADE", index=True))
+    school_id = Column(
+        UUID(as_uuid=True), ForeignKey("schools.id", ondelete="CASCADE", index=True)
+    )
     is_superuser = Column(Boolean, default=False)
     # Audit Fields
     is_active = Column(Boolean, default=True)

@@ -61,3 +61,7 @@ revision:
     else \
         $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) run --rm $(CONTAINER_NAME) alembic revision --autogenerate -m $(msg); \
     fi
+
+##lint        | Exec pre-commit
+lint:
+	pre-commit run --all-files

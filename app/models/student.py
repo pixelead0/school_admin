@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import uuid
 from datetime import datetime
 
@@ -12,8 +11,13 @@ from app.db.base import Base
 
 class Student(Base):
     __tablename__ = "students"
-    id = Column(UUID(as_uuid=True), primary_key=True,
-                default=uuid.uuid4, unique=True, nullable=False)
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     first_name = Column(String, index=True)
     last_name_father = Column(String, index=True)
     last_name_mother = Column(String, index=True)

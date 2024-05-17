@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import enum
 import uuid
 from datetime import datetime
@@ -20,8 +19,13 @@ class SchoolPeriodType(enum.Enum):
 
 class School(Base):
     __tablename__ = "schools"
-    id = Column(UUID(as_uuid=True), primary_key=True,
-                default=uuid.uuid4, unique=True, nullable=False)
+    id = Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     name = Column(String, index=True)
     country = Column(String)
     state = Column(String)

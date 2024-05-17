@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from app.models.grade import Grade
 from app.models.invoice import Invoice
 from app.models.payment import Payment

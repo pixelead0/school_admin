@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import uuid
 
 from passlib.context import CryptContext
@@ -28,8 +27,11 @@ def create_user(db: Session, user: UserCreate):
     if not school:
         raise ValueError("School not found")
     hashed_password = pwd_context.hash(user.password)
-    db_user = User(username=user.username,
-                   hashed_password=hashed_password, school_id=user.school_id)
+    db_user = User(
+        username=user.username,
+        hashed_password=hashed_password,
+        school_id=user.school_id,
+    )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -41,8 +43,7 @@ def update_user(db: Session, db_user: User, user_update: UserUpdate):
         db_user.hashed_password = pwd_context.hash(user_update.password)
     db_user.username = user_update.username or db_user.username
     if user_update.school_id:
-        school = db.query(School).filter(
-            School.id == user_update.school_id).first()
+        school = db.query(School).filter(School.id == user_update.school_id).first()
         if not school:
             raise ValueError("School not found")
         db_user.school_id = user_update.school_id

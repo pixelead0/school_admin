@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import uuid
 
 from fastapi import HTTPException
@@ -16,7 +15,9 @@ def get_student(db: Session, student_id: uuid.UUID):
     return student
 
 
-def get_students(db: Session, skip: int = 0, limit: int = settings.PAGINATION_DEFAULT_LIMIT):
+def get_students(
+    db: Session, skip: int = 0, limit: int = settings.PAGINATION_DEFAULT_LIMIT
+):
     return db.query(Student).offset(skip).limit(limit).all()
 
 
@@ -30,7 +31,7 @@ def create_student(db: Session, student: StudentCreate):
             enrollment=student.enrollment,
             grade_id=student.grade_id,
             school_id=student.school_id,
-            user_id=student.user_id
+            user_id=student.user_id,
         )
         db.add(db_student)
         db.commit()
@@ -38,8 +39,7 @@ def create_student(db: Session, student: StudentCreate):
         return db_student
     except Exception as e:
         db.rollback()
-        raise HTTPException(
-            status_code=500, detail=f"Error creating student: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error creating student: {str(e)}")
 
 
 def delete_student(db: Session, student_id: uuid.UUID):

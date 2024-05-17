@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import uuid
 
@@ -23,7 +22,7 @@ def create_payment(db: Session, payment: PaymentCreate):
         id=uuid.uuid4(),
         student_id=payment.student_id,
         school_id=payment.school_id,
-        payment_type_id=payment.payment_type_id
+        payment_type_id=payment.payment_type_id,
     )
     db.add(db_payment)
     db.commit()

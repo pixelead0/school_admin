@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import uuid
 
@@ -14,16 +13,23 @@ def get_grade(db: Session, grade_id: uuid.UUID):
     return db.query(Grade).filter(Grade.id == grade_id).first()
 
 
-def get_grades(db: Session, school_id: uuid.UUID, skip: int = 0, limit: int = PAGINATION_DEFAULT_LIMIT):
-    return db.query(Grade).filter(Grade.school_id == school_id).offset(skip).limit(limit).all()
+def get_grades(
+    db: Session,
+    school_id: uuid.UUID,
+    skip: int = 0,
+    limit: int = PAGINATION_DEFAULT_LIMIT,
+):
+    return (
+        db.query(Grade)
+        .filter(Grade.school_id == school_id)
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 
 def create_grade(db: Session, grade: GradeCreate):
-    db_grade = Grade(
-        id=uuid.uuid4(),
-        name=grade.name,
-        school_id=grade.school_id
-    )
+    db_grade = Grade(id=uuid.uuid4(), name=grade.name, school_id=grade.school_id)
     db.add(db_grade)
     db.commit()
     db.refresh(db_grade)
