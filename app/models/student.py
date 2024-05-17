@@ -10,7 +10,7 @@ from app.db.base import Base
 
 
 class Student(Base):
-    __tablename__ = "students"
+    __tablename__ = "student"
     id = Column(
         UUID(as_uuid=True),
         primary_key=True,
@@ -18,18 +18,14 @@ class Student(Base):
         unique=True,
         nullable=False,
     )
-    first_name = Column(String, index=True)
-    last_name_father = Column(String, index=True)
-    last_name_mother = Column(String, index=True)
+    first_name = Column(String(100), index=True)
+    last_name_father = Column(String(100), index=True)
+    last_name_mother = Column(String(100), index=True)
     enrollment = Column(String, unique=True)
-    grade_id = Column(UUID(as_uuid=True), ForeignKey("grades.id"))
-    school_id = Column(UUID(as_uuid=True), ForeignKey("schools.id"))
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), unique=True)
+    # grade_id = Column(UUID(as_uuid=True), ForeignKey("grades.id"))
+    # school_id = Column(UUID(as_uuid=True), ForeignKey("schools.id"))
+    # user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), unique=True)
 
-    school = relationship("School", back_populates="students")
-    grade = relationship("Grade", back_populates="students")
-    payments = relationship("Payment", back_populates="student")
-    invoices = relationship("Invoice", back_populates="student")
     # Audit Fields
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

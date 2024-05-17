@@ -4,9 +4,9 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from sqlalchemy.orm import Session
 
-from app.core.config import settings  # Importa la configuración
-from app.db.base import Base
+from app.core.config import settings
 from app.db.session import SessionLocal, engine, get_db
+from app.db.base import Base
 
 # from app.init_data import create_sample_data
 from app.routers import (

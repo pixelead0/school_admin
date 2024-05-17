@@ -9,7 +9,7 @@ from app.db.base import Base
 
 
 class PaymentType(Base):
-    __tablename__ = "payment_types"
+    __tablename__ = "payment_type"
     id = Column(
         UUID(as_uuid=True),
         primary_key=True,
@@ -17,7 +17,7 @@ class PaymentType(Base):
         unique=True,
         nullable=False,
     )
-    name = Column(String, index=True)
+    name = Column(String(100), index=True)
     price = Column(Float)
     # Audit Fields
     is_active = Column(Boolean, default=True)

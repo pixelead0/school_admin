@@ -10,7 +10,7 @@ from app.db.base import Base
 
 
 class Invoice(Base):
-    __tablename__ = "invoices"
+    __tablename__ = "invoice"
     id = Column(
         UUID(as_uuid=True),
         primary_key=True,
@@ -18,13 +18,11 @@ class Invoice(Base):
         unique=True,
         nullable=False,
     )
-    student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
+    student_id = Column(UUID(as_uuid=True), ForeignKey("student.id"))
+    payment_id = Column(UUID(as_uuid=True), ForeignKey("payment.id"))
     amount = Column(Float)
-    payment_id = Column(UUID(as_uuid=True), ForeignKey("payments.id"))
     date = Column(DateTime)
 
-    student = relationship("Student", back_populates="invoices")
-    payment = relationship("Payment")
     # Audit Fields
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

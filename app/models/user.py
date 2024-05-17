@@ -8,7 +8,6 @@ from sqlalchemy.sql import func
 
 from app.db.base import Base
 
-
 class User(Base):
     __tablename__ = "users"
     id = Column(
@@ -18,11 +17,11 @@ class User(Base):
         unique=True,
         nullable=False,
     )
-    username = Column(String, unique=True, index=True)
+    username = Column(String(100), unique=True, index=True)
     hashed_password = Column(String)
     school_id = Column(
         UUID(as_uuid=True),
-        ForeignKey("schools.id", ondelete="CASCADE", index=True),
+        ForeignKey("school.id", ondelete="CASCADE"), index=True,
     )
     is_superuser = Column(Boolean, default=False)
     # Audit Fields

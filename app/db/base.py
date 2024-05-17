@@ -1,11 +1,11 @@
 from app.db.session import Base
-from app.models.grade import Grade
-from app.models.invoice import Invoice
-from app.models.payment import Payment
-from app.models.payment_type import PaymentType
-from app.models.school import School
-from app.models.student import Student
-from app.models.user import User
+from app.models import User
+from app.models import School
+from app.models import Student
+from app.models import Invoice
+from app.models import Payment
+from app.models import PaymentType
+from app.models import Grade
 
 # Import all models to be included in Base
 __all__ = [

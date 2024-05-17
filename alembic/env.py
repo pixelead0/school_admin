@@ -1,30 +1,26 @@
 import os
 from logging.config import fileConfig
 
-from dotenv import load_dotenv  # Asegúrate de importar load_dotenv
+from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-from app.db.base import Base  # Importa tu Base
-from app.models import *  # Importa todos tus modelos
-
-load_dotenv()  # Carga las variables de entorno desde el archivo .env
-
-# Carga la URL de la base de datos desde el archivo .env
-DATABASE_URL = os.getenv("DATABASE_URL")
+from app.core.config import settings
+from app.db.base import Base
+from app.models import *
 
 config = context.config
 
 # Carga la URL de la base de datos en el archivo alembic.ini
-config.set_main_option("sqlalchemy.url", DATABASE_URL)
+config.set_main_option("sqlalchemy.url", settings.database_url)
 
-# Interpret the config file for Python logging.
 fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
 
 
 def run_migrations_offline():
+    """Ejecuta las migraciones en modo 'offline'."""
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -38,6 +34,7 @@ def run_migrations_offline():
 
 
 def run_migrations_online():
+    """Ejecuta las migraciones en modo 'online'."""
     connectable = engine_from_config(
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
