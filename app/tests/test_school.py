@@ -54,7 +54,7 @@ def test_create_school(auth_headers):
         "description": "La mejor escuela del mundo mundial",
     }
     response = client.post("/api/schools/", json=data_school, headers=auth_headers)
-    logger.info(response.__dict__)
+    logger.debug(response.__dict__)
     assert response.status_code == 200
     data = response.json()
     assert data["name"] == data_school["name"]
@@ -63,7 +63,7 @@ def test_create_school(auth_headers):
 
 def test_read_schools(auth_headers):
     response = client.get("/api/schools/", headers=auth_headers)
-    logger.info(response.__dict__)
+    logger.debug(response.__dict__)
     assert response.status_code == 200
     assert len(response.json()) > 0
 
