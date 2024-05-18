@@ -25,7 +25,7 @@ def get_current_user(
     )
     try:
         payload = decode_access_token(token)
-        logger.info(payload)
+        logger.debug(payload)
         if payload is None:
             raise credentials_exception
         token_data = TokenData(**payload)
