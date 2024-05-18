@@ -1,6 +1,7 @@
 import logging
 from logging.config import dictConfig
 
+
 class LogConfig:
     """Logging configuration to be set for the server"""
 
@@ -24,12 +25,15 @@ class LogConfig:
         "app": {"handlers": ["default"], "level": "INFO"},
     }
 
-dictConfig({
-    'version': LogConfig.VERSION,
-    'disable_existing_loggers': LogConfig.disable_existing_loggers,
-    'formatters': LogConfig.formatters,
-    'handlers': LogConfig.handlers,
-    'loggers': LogConfig.loggers,
-})
+
+dictConfig(
+    {
+        "version": LogConfig.VERSION,
+        "disable_existing_loggers": LogConfig.disable_existing_loggers,
+        "formatters": LogConfig.formatters,
+        "handlers": LogConfig.handlers,
+        "loggers": LogConfig.loggers,
+    },
+)
 
 logger = logging.getLogger("app")

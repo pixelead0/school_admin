@@ -1,3 +1,4 @@
+from app.db.base import Base
 from app.models.grade import Grade
 from app.models.invoice import Invoice
 from app.models.payment import Payment
