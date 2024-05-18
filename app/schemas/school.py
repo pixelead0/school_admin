@@ -16,7 +16,6 @@ class SchoolCreate(BaseModel):
     country: constr(min_length=2) = Field(...)
     state: constr(min_length=2) = Field(...)
     description: str = Field(...)
-    period_type: SchoolPeriodType = Field(...)
 
 
 class School(BaseModel):
@@ -25,7 +24,6 @@ class School(BaseModel):
     country: str
     state: str
     description: str
-    period_type: SchoolPeriodType
 
     class Config:
         orm_mode = True

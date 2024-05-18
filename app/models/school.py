@@ -9,14 +9,6 @@ from sqlalchemy.sql import func
 
 from app.db.base import Base
 
-
-class SchoolPeriodType(enum.Enum):
-    bimestral = "bimestral"
-    trimestral = "trimestral"
-    cuatrimestral = "cuatrimestral"
-    semestral = "semestral"
-
-
 class School(Base):
     __tablename__ = "school"
     id = Column(
@@ -30,7 +22,6 @@ class School(Base):
     country = Column(String(100))
     state = Column(String(100))
     description = Column(String(250))
-    period_type = Column(Enum(SchoolPeriodType))
 
     # Audit Fields
     is_active = Column(Boolean, default=True)
