@@ -5,11 +5,11 @@ from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
 from app import crud
-from app.schemas.token import TokenData
 from app.core.config import settings
-from app.core.security import decode_access_token
 from app.core.logging_config import logger
+from app.core.security import decode_access_token
 from app.db.session import get_db
+from app.schemas.token import TokenData
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")
 
