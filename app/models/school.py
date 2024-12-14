@@ -9,6 +9,7 @@ from sqlalchemy.sql import func
 
 from app.db.base import Base
 
+
 class School(Base):
     __tablename__ = "school"
     id = Column(

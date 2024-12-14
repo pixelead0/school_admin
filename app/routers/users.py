@@ -10,12 +10,7 @@ from sqlalchemy.orm import Session
 from app import crud, models
 from app.core.config import settings
 from app.core.security import create_access_token
-from app.crud.user import (
-    create_user,
-    get_user,
-    get_user_by_username,
-    get_users,
-)
+from app.crud.user import create_user, get_user, get_user_by_username, get_users
 from app.db.session import get_db
 from app.schemas.token import Token
 from app.schemas.user import User, UserCreate
